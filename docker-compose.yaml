@@ -1,0 +1,23 @@
+version: '3'
+services:
+  strapi:
+    image: strapi/strapi
+    container_name: rule-of-thumb-strapi
+    volumes:
+      - ./strapi:/srv/app
+    ports:
+      - '1337:1337'
+    command: sh -c "yarn generate-lock-entry && yarn install  && yarn run develop"
+  vue:
+    image: vue
+    build:
+      context: ./vue
+      dockerfile: Dockerfile
+    container_name: rule-of-thumb-vue
+    depends_on:
+      - strapi
+    ports:
+      - 8080:8080
+    volumes:
+      - ./vue:/app/vue
+      - /app/vue/node_modules
