@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import BaseTemplate from "./components/BaseTemplate";
+import BaseTemplate from "@/components/BaseTemplate";
 
 export default {
   name: "App",
