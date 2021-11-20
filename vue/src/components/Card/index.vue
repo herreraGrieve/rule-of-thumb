@@ -1,50 +1,53 @@
 <template>
-    <article>
-        <img alt="" src="#" />
-        <Heading :level="headingLevel"> {{ title }} </Heading>
-        <div>
-            <p v-if="voteIsSubmited">Thank you for you vote</p>
-            <time v-else itemprop="datePublished" :datetime="datePublished">
-                {{ datePublished }}
-            </time>
-        </div>
-        <p>{{ description }}</p>
-        <div>
-            <GaugeBar
-                :upvotes="12"
-                :downvotes="1"
-                :upvoteLabel="`${upvotes} of voters liked this celebrity`"
-                :downvoteLabel="`${downvotes} of voters disliked this celebrity`"
-            />
-        </div>
-        <form>
-            <Button
-                v-if="voteIsSubmited"
-                :click="resetCard"
-            >
-                Vote Again
-            </Button>
-            <div v-else>
-                <ReactionButton
-                    aria-label="like this celebrity"
-                    type="upvote"
-                    @click="selectVote(1)"
-                    :is-selected="selectedVote===1"
-                />
-                <ReactionButton
-                    aria-label="dislike this celebrity"
-                    type="downvote"
-                    @click="selectVote(0)"
-                    :is-selected="selectedVote===0"
-                />
-                <Button
-                    :disabled="userHasVoted"
-                    :click="submitVote"
-                >
-                    Vote Now
-                </Button>
+    <article class="card">
+        <img alt="" src="https://picsum.photos/600/500" class="image"/>
+        <div class="content">
+            <Heading class="title" :level="headingLevel"> {{ title }} </Heading>
+            <p class="description">{{ description }}</p>
+            <div class="submitedDate">
+                <p v-if="voteIsSubmited">Thank you for you vote!</p>
+                <time v-else itemprop="datePublished" :datetime="datePublished">
+                    {{ datePublished }}
+                </time>
             </div>
-        </form>
+            <form class="form">
+                <Button
+                    v-if="voteIsSubmited"
+                    :click="resetCard"
+                >
+                    Vote Again
+                </Button>
+                <div v-else>
+                    <ReactionButton
+                        class="reactionButton"
+                        aria-label="like this celebrity"
+                        type="upvote"
+                        @click="selectVote(1)"
+                        :is-selected="selectedVote===1"
+                    />
+                    <ReactionButton
+                        class="reactionButton"
+                        aria-label="dislike this celebrity"
+                        type="downvote"
+                        @click="selectVote(0)"
+                        :is-selected="selectedVote===0"
+                    />
+                    <Button
+                        class="voteButton"
+                        :disabled="userHasVoted"
+                        :click="submitVote"
+                    >
+                        Vote Now
+                    </Button>
+                </div>
+            </form>
+        </div>
+        <GaugeBar
+            :upvotes="12"
+            :downvotes="1"
+            :upvoteLabel="`${upvotes} of voters liked this celebrity`"
+            :downvoteLabel="`${downvotes} of voters disliked this celebrity`"
+        />
     </article>
 </template>
 
@@ -118,3 +121,57 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+    .card{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        color: white;
+        background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.0001) 0%, #888888 19.79%, #666666 50%, rgba(51, 51, 51, 0.6) 71.88%);
+        z-index: 1;
+    }
+    .card::before{
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 80%;
+        background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.6) 100%);
+        z-index: -1;
+    }
+    .image{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -2;
+        object-fit: cover;
+        object-position: center center;
+    }
+    .content{
+        padding: 2rem 3rem 1rem 3rem;
+    }
+    .title{
+        margin-bottom: 0.5rem;
+        font-weight: 200;
+        font-size: var(--text-7);
+    }
+    .description{
+        margin-bottom: 1rem;
+        font-size: var(--text-2);
+    }
+    .submitedDate,.form{
+        text-align: right;
+    }
+    .submitedDate{
+        margin-bottom: 1rem;
+    }
+    .voteButton,.reactionButton{
+        margin-left: 1rem;
+    }
+
+</style>
