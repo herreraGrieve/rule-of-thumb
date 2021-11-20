@@ -2,6 +2,8 @@
     <article class="card">
         <img alt="" src="https://picsum.photos/600/500" class="image"/>
         <div class="content">
+            <div v-if="winningVotes===1" class="upvoteBadge"></div>
+            <div v-else class="downvoteBadge"></div>
             <Heading class="title" :level="headingLevel"> {{ title }} </Heading>
             <p class="description">{{ description }}</p>
             <div class="submitedDate">
@@ -89,6 +91,14 @@ export default {
                 return false
             }
             return true
+        },
+        winningVotes(){
+            if(this.upvotes >= this.downvotes){
+                return 1
+            }
+            else{
+                return 0
+            }
         }
     },
     props: {
@@ -173,5 +183,20 @@ export default {
     .voteButton,.reactionButton{
         margin-left: 1rem;
     }
-
+    .upvoteBadge,.downvoteBadge{
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        left: 0;
+    }
+    .upvoteBadge{
+        background: 
+            var(--color-green)
+            url('~@/assets/img/thumbs-up.svg') no-repeat center;
+    }
+    .downvoteBadge{
+        background: 
+            var(--color-yellow)
+            url('~@/assets/img/thumbs-down.svg') no-repeat center;
+    }
 </style>
