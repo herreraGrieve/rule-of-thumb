@@ -1,11 +1,23 @@
 <template>
     <div class="container" :style="barSizes">
         <div class="upBar">
-            <span aria-hidden="true"> {{ percent(upvotes) }}% </span>
+            <span
+                class="upBar__label"
+                aria-hidden="true"
+            > 
+                <img alt="" src="@/assets/img/thumbs-up.svg"/> 
+                {{ percent(upvotes) }}%
+            </span>
             <p class="sr-only"> {{ upvoteLabel }} </p>
         </div>
         <div class="downBar">
-            <span aria-hidden="true"> {{ percent(downvotes) }}% </span>
+            <span
+                class="downBar__label" 
+                aria-hidden="true"
+            >
+                {{ percent(downvotes) }}% 
+                <img alt="" src="@/assets/img/thumbs-down.svg"/>
+            </span>
             <p class="sr-only"> {{ downvoteLabel }} </p>
         </div>
     </div>
@@ -57,11 +69,27 @@ export default {
     .container{
         display: grid;
     }
+    .upBar,.downBar{
+        height: 36px;
+        color: white;
+        font-size: var(--text-3);
+        display: flex;
+        align-items: center;
+    }
     .upBar{
-        background-color: green;
+        padding-left: 0.9rem;
+        background-color: var(--color-green-background);
     }
     .downBar{
-        background-color: blue;
+        padding-right: 0.9rem;
+        text-align: right;
+        background-color: var(--color-yellow-background);
+    }
+    .downBar__label{
+        margin-left: auto;
+    }
+    .upBar__label,.downBar__label{
+        white-space: nowrap;
     }
     .sr-only {
         /* hides content for screens but not for screen-readers */
