@@ -2,31 +2,47 @@
     <article>
         <img alt="" src="#" />
         <Heading :level="headingLevel"> {{ title }} </Heading>
-        <time itemprop="datePublished" :datetime="datePublished">
-            {{ datePublished }}
-        </time>
+        <div>
+            <p v-if="voteIsSubmited">Thank you for you vote</p>
+            <time v-else itemprop="datePublished" :datetime="datePublished">
+                {{ datePublished }}
+            </time>
+        </div>
         <p>{{ description }}</p>
         <div>
             <p
-                aria-hidden="true"
                 :aria-label="`${upvotes} of voters liked this celebrity`"
             >
                 {{ upvotes }}
             </p>
             <p
-                aria-hidden="true"
                 :aria-label="`${downvotes} of voters disliked this celebrity`"
             >
                 {{ downvotes }}
             </p>
         </div>
         <form>
-            <button title="Vote with a like for this celebrity">
-                Vote Now
+            <button v-if="voteIsSubmited" type="button" @click="resetCard">
+                Vote Again
             </button>
-            <div>
-                <button aria-label="like this celebrity"></button>
-                <button aria-label="dislike this celebrity"></button>
+            <div v-else>
+                <button
+                    aria-label="like this celebrity"
+                    @click="selectVote(1)"
+                    type="button"
+                >
+                    up
+                </button>
+                <button
+                    aria-label="dislike this celebrity"
+                    @click="selectVote(0)"
+                    type="button"
+                >
+                    down
+                </button>
+                <button type="button" :disabled="userHasVoted" @click="submitVote">
+                    Vote Now
+                </button>
             </div>
         </form>
     </article>
@@ -39,6 +55,32 @@ export default {
     name: 'Card',
     components: {
         Heading,
+    },
+    data() {
+        return{
+            selectedVote: null,
+            voteIsSubmited: false
+        }
+    },
+    methods:{
+        selectVote(vote){
+            this.selectedVote = vote
+        },
+        submitVote(){
+            this.voteIsSubmited = true
+        },
+        resetCard(){
+            this.selectedVote = null
+            this.voteIsSubmited = false
+        }
+    },
+    computed:{
+        userHasVoted(){
+            if (this.selectedVote === 0 || this.selectedVote === 1){
+                return false
+            }
+            return true
+        }
     },
     props: {
         title: {
