@@ -10,39 +10,39 @@
         </div>
         <p>{{ description }}</p>
         <div>
-            <p
-                :aria-label="`${upvotes} of voters liked this celebrity`"
-            >
-                {{ upvotes }}
-            </p>
-            <p
-                :aria-label="`${downvotes} of voters disliked this celebrity`"
-            >
-                {{ downvotes }}
-            </p>
+            <GaugeBar
+                :upvotes="12"
+                :downvotes="1"
+                :upvoteLabel="`${upvotes} of voters liked this celebrity`"
+                :downvoteLabel="`${downvotes} of voters disliked this celebrity`"
+            />
         </div>
         <form>
-            <button v-if="voteIsSubmited" type="button" @click="resetCard">
+            <Button
+                v-if="voteIsSubmited"
+                :click="resetCard"
+            >
                 Vote Again
-            </button>
+            </Button>
             <div v-else>
-                <button
+                <ReactionButton
                     aria-label="like this celebrity"
+                    type="upvote"
                     @click="selectVote(1)"
-                    type="button"
-                >
-                    up
-                </button>
-                <button
+                    :is-selected="selectedVote===1"
+                />
+                <ReactionButton
                     aria-label="dislike this celebrity"
+                    type="downvote"
                     @click="selectVote(0)"
-                    type="button"
+                    :is-selected="selectedVote===0"
+                />
+                <Button
+                    :disabled="userHasVoted"
+                    :click="submitVote"
                 >
-                    down
-                </button>
-                <button type="button" :disabled="userHasVoted" @click="submitVote">
                     Vote Now
-                </button>
+                </Button>
             </div>
         </form>
     </article>
@@ -50,11 +50,17 @@
 
 <script>
 import Heading from '@/components/Heading';
+import GaugeBar from '@/components/GaugeBar';
+import Button from '@/components/Button';
+import ReactionButton from '@/components/ReactionButton';
 
 export default {
     name: 'Card',
     components: {
         Heading,
+        GaugeBar,
+        Button,
+        ReactionButton
     },
     data() {
         return{
