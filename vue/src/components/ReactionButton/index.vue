@@ -54,9 +54,9 @@ export default {
         border: 2px solid white;
     }
     .upvote{
-        background-color: var(--color-yellow);
+        background-color: var(--color-green);
     }
     .downvote{
-        background-color: var(--color-green);
+        background-color: var(--color-yellow);
     }
 </style>
