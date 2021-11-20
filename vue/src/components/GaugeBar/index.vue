@@ -1,17 +1,19 @@
 <template>
     <div class="container" :style="barSizes">
         <div class="upBar">
-            <span aria-hidden="true"> {{ upvotes }} </span>
+            <span aria-hidden="true"> {{ percent(upvotes) }}% </span>
             <p class="sr-only"> {{ upvoteLabel }} </p>
         </div>
         <div class="downBar">
-            <span aria-hidden="true"> {{ downvotes }} </span>
+            <span aria-hidden="true"> {{ percent(downvotes) }}% </span>
             <p class="sr-only"> {{ downvoteLabel }} </p>
         </div>
     </div>
 </template>
 
 <script>
+
+import { percent } from '@/utils';
 
 export default {
     name: 'GaugeBar',
@@ -38,6 +40,14 @@ export default {
     computed:{
         barSizes(){
             return `grid-template-columns: ${this.upvotes}fr ${this.downvotes}fr`
+        }
+    },
+    methods: {
+        percent(votes){
+            return percent(
+                this.upvotes + this.downvotes,
+                votes
+            )
         }
     }
 };
