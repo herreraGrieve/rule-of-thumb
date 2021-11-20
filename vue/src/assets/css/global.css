@@ -12,6 +12,11 @@
     --color-lighter-background: rgba(255, 255, 255, .8);
     --color-white: rgba(255, 255, 255, 1);
 
+    --color-yellow: rgba(249, 173, 29);
+    --color-green: rgba(60, 187, 180);
+    --color-yellow-background: rgba(249, 173, 29, 0.6);
+    --color-green-background: rgba(60, 187, 180, 0.6);
+
     --text-2: 1.25rem;
     --text-1: 1.125rem;
     --text-0: 1rem;
