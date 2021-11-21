@@ -1,11 +1,11 @@
 <template>
-    <div class="container" :style="barSizes">
+    <div :class="`gaugeBar gaugeBar--${size}`" :style="barSizes">
         <div class="upBar">
             <span
                 class="upBar__label"
                 aria-hidden="true"
             >
-                <img alt="" src="@/assets/img/thumbs-up.svg"/>
+                <img class="icon" alt="" src="@/assets/img/thumbs-up.svg"/>
                 {{ percent(upvotes) }}%
             </span>
             <p class="sr-only"> {{ upvoteLabel }} </p>
@@ -16,7 +16,7 @@
                 aria-hidden="true"
             >
                 {{ percent(downvotes) }}%
-                <img alt="" src="@/assets/img/thumbs-down.svg"/>
+                <img class="icon" alt="" src="@/assets/img/thumbs-down.svg"/>
             </span>
             <p class="sr-only"> {{ downvoteLabel }} </p>
         </div>
@@ -48,6 +48,13 @@ export default {
             default: 0,
             required: true,
         },
+        size:{
+            type: String,
+            default: 'medium',
+            validator (value) {
+                return ['medium', 'small'].indexOf(value) !== -1
+            },
+        }
     },
     computed:{
         barSizes(){
@@ -66,7 +73,7 @@ export default {
 </script>
 
 <style scoped>
-    .container{
+    .gaugeBar{
         position: relative;
         display: grid;
         height: 36px;
@@ -104,11 +111,23 @@ export default {
         overflow:hidden;
     }
     @media screen and (min-width:1010px) {
-        .container{
+        .icon{
+            width: 22px;
+        }
+        .gaugeBar{
             height: 54px;
         }
         .upBar,.downBar{
             font-size: var(--text-5);
+        }
+        .gaugeBar--small{
+            height: 36px;
+        }
+        .gaugeBar--small .upBar,.gaugeBar--small .downBar{
+            font-size: var(--text-3);
+        }
+        .gaugeBar--small .icon{
+            width: 15px;
         }
     }
 </style>
