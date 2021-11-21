@@ -1,5 +1,5 @@
 <template>
-    <button type="button" @click="onClick" :class="`reactionButton ${type} ${selected}`">
+    <button type="button" @click="onClick" :class="`reactionButton reactionButton--${size} ${type} ${selected}`">
         <img class="icon" v-if="type==='upvote'" src="@/assets/img/thumbs-up.svg"/>
         <img class="icon" v-if="type==='downvote'" src="@/assets/img/thumbs-down.svg"/>
     </button>
@@ -25,6 +25,13 @@ export default {
                 return ['upvote', 'downvote'].indexOf(value) !== -1
             },
             required: true,
+        },
+        size:{
+            type: String,
+            default: 'medium',
+            validator (value) {
+                return ['medium', 'small'].indexOf(value) !== -1
+            },
         }
     },
     computed:{
@@ -60,6 +67,14 @@ export default {
         background-color: var(--color-yellow);
     }
     @media screen and (min-width:1010px) {
+        .reactionButton--small.upvote,
+        .reactionButton--small.downvote{
+            width: 30px;
+            height: 30px;
+        }
+        .reactionButton--small .icon{
+            width: 16px;
+        }
         .upvote,.downvote{
             width: 45px;
             height: 45px;
