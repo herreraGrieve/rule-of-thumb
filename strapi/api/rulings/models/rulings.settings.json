@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "rulings",
+  "info": {
+    "name": "rulings",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "picture": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "positiveVotes": {
+      "type": "biginteger",
+      "default": "0",
+      "min": "0"
+    },
+    "negativeVotes": {
+      "type": "biginteger",
+      "default": "0",
+      "min": "0"
+    },
+    "category": {
+      "model": "categories"
+    }
+  }
+}
