@@ -29,4 +29,9 @@ export default {
         background: var(--color-darker-gray-background);
         cursor: auto;
     }
+    @media screen and (min-width:1010px) {
+        .button{
+            font-size: var(--text-3);
+        }
+    }
 </style>
