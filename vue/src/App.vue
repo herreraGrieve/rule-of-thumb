@@ -9,6 +9,7 @@
                         :datePublished="ruling.updated_at"
                         :upvotes="parseInt(ruling.positiveVotes)"
                         :downvotes="parseInt(ruling.negativeVotes)"
+                        :picture="`${baseApi}${ruling.picture.url}`"
                         :layout="layout"
                         @onSubmitVote="(vote)=>{onSubmitVote(vote,index)}"
                     />
@@ -23,6 +24,7 @@ import BaseTemplate from '@/components/BaseTemplate';
 import ContentDisplayer from '@/components/ContentDisplayer';
 import Card from '@/components/Card';
 import { getRulings, updateRuling } from '@/api';
+import config from '@/config';
 
 export default {
     name: 'App',
@@ -34,7 +36,8 @@ export default {
     data() {
         return{
             layout: "list",
-            rulings: []
+            rulings: [],
+            baseApi: config.baseApi
         }
     },
     methods:{

@@ -1,6 +1,6 @@
 <template>
     <article :class="`card card--${layout}`">
-        <img alt="" src="https://picsum.photos/600/500" class="image"/>
+        <img alt="" :src="picture" class="image"/>
         <div class="content">
             <div v-if="winningVotes===1 && hasVotes" class="upvoteBadge"></div>
             <div v-else-if="hasVotes" class="downvoteBadge"></div>
@@ -149,6 +149,10 @@ export default {
             default: 0,
         },
         datePublished: {
+            type: String,
+            default: '',
+        },
+        picture: {
             type: String,
             default: '',
         },
