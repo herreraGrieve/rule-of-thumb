@@ -1,5 +1,5 @@
 <template>
-    <button type="button" @click="click" class="button">
+    <button type="button" @click="click" :class="`button button--${size}`">
         <slot></slot>
     </button>
 </template>
@@ -11,6 +11,13 @@ export default {
     props: {
         click: {
             type: Function,
+        },
+        size:{
+            type: String,
+            default: 'medium',
+            validator (value) {
+                return ['medium', 'small'].indexOf(value) !== -1
+            },
         }
   }
 };
@@ -32,6 +39,9 @@ export default {
     @media screen and (min-width:1010px) {
         .button{
             font-size: var(--text-3);
+        }
+        .button.button--small{
+            font-size: var(--text-2);
         }
     }
 </style>
