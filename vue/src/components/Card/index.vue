@@ -53,8 +53,8 @@
             </div>
         </div>
         <GaugeBar
-            :upvotes="12"
-            :downvotes="1"
+            :upvotes="upvotes"
+            :downvotes="downvotes"
             :upvoteLabel="`${upvotes} of voters liked this celebrity`"
             :downvoteLabel="`${downvotes} of voters disliked this celebrity`"
             :size="childrenSizes"

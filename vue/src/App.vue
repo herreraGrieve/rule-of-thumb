@@ -90,7 +90,12 @@ export default {
             this.layout = layout
         },
         onSubmitVote(vote,index){
-            console.log(vote,index)
+            if(vote===0){
+                this.rulings[index].downvotes = this.rulings[index].downvotes + 1
+            }
+            else if(vote===1){
+                this.rulings[index].upvotes = this.rulings[index].upvotes + 1
+            }
         }
     }
 };
