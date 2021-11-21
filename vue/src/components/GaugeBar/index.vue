@@ -1,6 +1,6 @@
 <template>
     <div :class="`gaugeBar gaugeBar--${size}`" :style="barSizes">
-        <div class="upBar">
+        <div v-if="hasVotes" class="upBar">
             <span
                 class="upBar__label"
                 aria-hidden="true"
@@ -10,7 +10,7 @@
             </span>
             <p class="sr-only"> {{ upvoteLabel }} </p>
         </div>
-        <div class="downBar">
+        <div v-if="hasVotes" class="downBar">
             <span
                 class="downBar__label" 
                 aria-hidden="true"
@@ -20,6 +20,7 @@
             </span>
             <p class="sr-only"> {{ downvoteLabel }} </p>
         </div>
+        <p v-else class="empty">No votes yet. Be the first one!</p>
     </div>
 </template>
 
@@ -59,6 +60,14 @@ export default {
     computed:{
         barSizes(){
             return `grid-template-columns: ${this.upvotes}fr ${this.downvotes}fr`
+        },
+        hasVotes(){
+            if(this.upvotes > 0 || this.downvotes > 0){
+                return true
+            }
+            else{
+                return false
+            }
         }
     },
     methods: {
@@ -73,6 +82,11 @@ export default {
 </script>
 
 <style scoped>
+    .empty{
+        position: absolute;
+        right: 3rem;
+        bottom: 1rem;
+    }
     .gaugeBar{
         position: relative;
         display: grid;
