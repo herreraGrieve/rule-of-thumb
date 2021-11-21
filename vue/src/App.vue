@@ -22,7 +22,7 @@
 import BaseTemplate from '@/components/BaseTemplate';
 import ContentDisplayer from '@/components/ContentDisplayer';
 import Card from '@/components/Card';
-import { getRulings } from '@/api';
+import { getRulings, updateRuling } from '@/api';
 
 export default {
     name: 'App',
@@ -41,13 +41,22 @@ export default {
         onLayoutChange(layout){
             this.layout = layout
         },
-        onSubmitVote(vote,index){
+        async onSubmitVote (vote,index){
+            let postobj = {
+                id: this.rulings[index].id,
+                fields:{}
+            }
             if(vote===0){
-                this.rulings[index].downvotes = this.rulings[index].downvotes + 1
+                const negativeVotes = parseInt(this.rulings[index].negativeVotes) + 1
+                postobj.fields = { negativeVotes: negativeVotes}
+                this.rulings[index].negativeVotes = negativeVotes
             }
             else if(vote===1){
-                this.rulings[index].upvotes = this.rulings[index].upvotes + 1
+                const newPositiveVotes = parseInt(this.rulings[index].positiveVotes) + 1
+                postobj.fields = { positiveVotes: newPositiveVotes }
+                this.rulings[index].positiveVotes = newPositiveVotes
             }
+            await updateRuling(postobj)
         }
     },
     async mounted(){

@@ -8,3 +8,6 @@ const request = axios.create({
 
 export const getRulings = () =>
     request.get('/rulings');
+
+export const updateRuling = (data = {}) =>
+    request.put(`/rulings/${data.id}`, data.fields);
