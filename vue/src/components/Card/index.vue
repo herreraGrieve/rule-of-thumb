@@ -6,7 +6,7 @@
             <div v-else-if="hasVotes" class="downvoteBadge"></div>
             <div>
                 <Heading class="title" :level="headingLevel"> {{ title }} </Heading>
-                <p class="description">{{ description }}</p>
+                <p class="description">{{ trimmedDescription }}</p>
             </div>
             <div>
                 <div class="submitedDate">
@@ -96,6 +96,12 @@ export default {
         }
     },
     computed:{
+        trimmedDescription(){
+            if(this.description.length > 103){
+                return this.description.substring(0, 100) + '...'
+            }
+            return this.description
+        },
         userHasVoted(){
             if (this.selectedVote === 0 || this.selectedVote === 1){
                 return false
@@ -216,6 +222,7 @@ export default {
     .submitedDate,
     .form{
         text-align: right;
+        white-space: nowrap;
     }
     .submitedDate{
         margin-bottom: 1rem;
