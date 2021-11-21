@@ -58,8 +58,12 @@ export default {
     .itemsList{
         display: grid;
         gap: 27px;
+        height: 300px;
         grid-auto-flow: column;
         overflow: auto;
+    }
+    .itemsList li{
+        min-width: 300px;
     }
     @media screen and (min-width:768px) {
         .header{
@@ -68,13 +72,20 @@ export default {
             align-items: center;
         }
         .itemsList{
+            height: auto;
             grid-auto-flow: initial;
+        }
+        .itemsList li{
+            min-width: initial;
         }
         .select{
             display: block;
         }
         .grid{
             grid-template-columns: 1fr 1fr;
+        }
+        .grid.itemsList li{
+            min-height: 300px;
         }
     }
     @media screen and (min-width:1010px) {
