@@ -60,6 +60,11 @@ export default {
         overflow: auto;
     }
     @media screen and (min-width:768px) {
+        .header{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
         .itemsList{
             grid-auto-flow: initial;
         }
@@ -71,6 +76,13 @@ export default {
         }
     }
     @media screen and (min-width:1010px) {
+        .header{
+            margin-bottom: 3rem;
+        }
+        .title{
+            font-size: var(--text-7);
+            font-weight: 300;
+        }
         .grid{
             grid-template-columns: 1fr 1fr 1fr;
         }
