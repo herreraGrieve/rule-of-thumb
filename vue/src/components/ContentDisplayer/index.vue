@@ -2,11 +2,10 @@
     <div>
         <div class="header">
             <Heading class="title" :level="2"> {{ title }} </Heading>
-            <Heading class="title" :level="headingLevel"> {{ title }} </Heading>
-            <select class="select" v-model="layout" @change="onLayoutChange">
+            <Select aria-hidden="true" v-model="layout" @change="onLayoutChange">
                 <option name="list" value="list">List</option>
                 <option name="grid" value="grid">Grid</option>
-            </select>
+            </Select>
         </div>
         <ul :class="`itemsList ${layout}`">
             <slot></slot>
@@ -17,11 +16,13 @@
 <script>
 
 import Heading from '@/components/Heading';
+import Select from '@/components/Select';
 
 export default {
     name: 'ContentDisplayer',
     components: {
         Heading,
+        Select
     },
     props: {
         title: {
