@@ -1,6 +1,7 @@
 <template>
     <div>
         <div class="header">
+            <Heading class="title" :level="2"> {{ title }} </Heading>
             <Heading class="title" :level="headingLevel"> {{ title }} </Heading>
             <select class="select" v-model="layout" @change="onLayoutChange">
                 <option name="list" value="list">List</option>
