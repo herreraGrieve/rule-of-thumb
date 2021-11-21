@@ -4,45 +4,49 @@
         <div class="content">
             <div v-if="winningVotes===1" class="upvoteBadge"></div>
             <div v-else class="downvoteBadge"></div>
-            <Heading class="title" :level="headingLevel"> {{ title }} </Heading>
-            <p class="description">{{ description }}</p>
-            <div class="submitedDate">
-                <p v-if="voteIsSubmited">Thank you for you vote!</p>
-                <time v-else itemprop="datePublished" :datetime="datePublished">
-                    {{ datePublished }}
-                </time>
+            <div>
+                <Heading class="title" :level="headingLevel"> {{ title }} </Heading>
+                <p class="description">{{ description }}</p>
             </div>
-            <form class="form">
-                <Button
-                    v-if="voteIsSubmited"
-                    :click="resetCard"
-                >
-                    Vote Again
-                </Button>
-                <div v-else>
-                    <ReactionButton
-                        class="reactionButton"
-                        aria-label="like this celebrity"
-                        type="upvote"
-                        @click="selectVote(1)"
-                        :is-selected="selectedVote===1"
-                    />
-                    <ReactionButton
-                        class="reactionButton"
-                        aria-label="dislike this celebrity"
-                        type="downvote"
-                        @click="selectVote(0)"
-                        :is-selected="selectedVote===0"
-                    />
-                    <Button
-                        class="voteButton"
-                        :disabled="userHasVoted"
-                        :click="submitVote"
-                    >
-                        Vote Now
-                    </Button>
+            <div>
+                <div class="submitedDate">
+                    <p v-if="voteIsSubmited">Thank you for you vote!</p>
+                    <time v-else itemprop="datePublished" :datetime="datePublished">
+                        {{ datePublished }}
+                    </time>
                 </div>
-            </form>
+                <form class="form">
+                    <Button
+                        v-if="voteIsSubmited"
+                        :click="resetCard"
+                    >
+                        Vote Again
+                    </Button>
+                    <div v-else class="voteButons">
+                        <ReactionButton
+                            class="reactionButton"
+                            aria-label="like this celebrity"
+                            type="upvote"
+                            @click="selectVote(1)"
+                            :is-selected="selectedVote===1"
+                        />
+                        <ReactionButton
+                            class="reactionButton"
+                            aria-label="dislike this celebrity"
+                            type="downvote"
+                            @click="selectVote(0)"
+                            :is-selected="selectedVote===0"
+                        />
+                        <Button
+                            class="voteButton"
+                            :disabled="userHasVoted"
+                            :click="submitVote"
+                        >
+                            Vote Now
+                        </Button>
+                    </div>
+                </form>
+            </div>
         </div>
         <GaugeBar
             :upvotes="12"
@@ -139,7 +143,6 @@ export default {
         flex-direction: column;
         justify-content: flex-end;
         color: white;
-        background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.0001) 0%, #888888 19.79%, #666666 50%, rgba(51, 51, 51, 0.6) 71.88%);
         z-index: 1;
     }
     .card::before{
@@ -148,7 +151,7 @@ export default {
         bottom: 0;
         left: 0;
         width: 100%;
-        height: 80%;
+        height: 100%;
         background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.6) 100%);
         z-index: -1;
     }
@@ -167,12 +170,17 @@ export default {
     }
     .title{
         margin-bottom: 0.5rem;
-        font-weight: 200;
-        font-size: var(--text-7);
+        font-weight: 400;
+        font-size: var(--text-5);
     }
     .description{
         margin-bottom: 1rem;
         font-size: var(--text-2);
+    }
+    .voteButons{
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
     }
     .submitedDate,.form{
         text-align: right;
@@ -198,5 +206,46 @@ export default {
         background: 
             var(--color-yellow)
             url('~@/assets/img/thumbs-down.svg') no-repeat center;
+    }
+    @media screen and (min-width:768px) {
+        .card::before{
+            width: 90%;
+            left: auto;
+            right: 0;
+            background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.0001) 0%, #888888 19.79%, #666666 50%, rgba(51, 51, 51, 0.6) 71.88%);
+        }
+        .content{
+            display: flex;
+            justify-content: space-between;
+            padding: 2rem 3rem 2rem 15rem;
+        }
+        .title{
+            margin-bottom: 1.2rem;
+            font-size: var(--text-5);
+        }
+        .description{
+            margin: 0;
+            font-size: var(--text-3);
+        }
+        .upvoteBadge,.downvoteBadge{
+            top: 0;
+        }
+        .image{
+            width: 30%;
+        }
+
+    }
+    @media screen and (min-width:1010px) {
+        .title{
+            margin-bottom: 1.5rem;
+            font-size: var(--text-6);
+        }
+        .description{
+            margin: 0;
+            font-size: var(--text-4);
+        }
+        .submitedDate{
+            font-size: var(--text-2);
+        }
     }
 </style>
