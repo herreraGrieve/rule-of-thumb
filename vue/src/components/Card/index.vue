@@ -1,5 +1,5 @@
 <template>
-    <article class="card">
+    <article :class="`card card--${layout}`">
         <img alt="" src="https://picsum.photos/600/500" class="image"/>
         <div class="content">
             <div v-if="winningVotes===1" class="upvoteBadge"></div>
@@ -132,6 +132,13 @@ export default {
             type: String,
             default: '',
         },
+        layout: {
+            type: String,
+            default: 'vertical',
+            validator (value) {
+                return ['horizontal', 'vertical'].indexOf(value) !== -1
+            },
+        }
     },
 };
 </script>
@@ -234,6 +241,18 @@ export default {
             width: 30%;
         }
 
+        .card--vertical .content{
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+        .card--vertical .description{
+            margin: 0;
+            font-size: var(--text-2);
+        }
+        .card--vertical .upvoteBadge,
+        .card--vertical.downvoteBadge{
+            top: 2rem
+        }
     }
     @media screen and (min-width:1010px) {
         .title{
@@ -246,6 +265,11 @@ export default {
         }
         .submitedDate{
             font-size: var(--text-2);
+        }
+        .upvoteBadge,.downvoteBadge{
+            width: 45px;
+            height: 45px;
+            background-size: 24px auto;
         }
     }
 </style>
