@@ -2,8 +2,8 @@
     <article :class="`card card--${layout}`">
         <img alt="" src="https://picsum.photos/600/500" class="image"/>
         <div class="content">
-            <div v-if="winningVotes===1" class="upvoteBadge"></div>
-            <div v-else class="downvoteBadge"></div>
+            <div v-if="winningVotes===1 && hasVotes" class="upvoteBadge"></div>
+            <div v-else-if="hasVotes" class="downvoteBadge"></div>
             <div>
                 <Heading class="title" :level="headingLevel"> {{ title }} </Heading>
                 <p class="description">{{ description }}</p>
@@ -115,6 +115,14 @@ export default {
                 return 'small'
             }
             return 'medium'
+        },
+        hasVotes(){
+            if(this.upvotes > 0 || this.downvotes > 0){
+                return true
+            }
+            else{
+                return false
+            }
         }
     },
     props: {
