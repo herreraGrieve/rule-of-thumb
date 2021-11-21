@@ -19,6 +19,7 @@
                     <Button
                         v-if="voteIsSubmited"
                         :click="resetCard"
+                        :size="childrenSizes"
                     >
                         Vote Again
                     </Button>
@@ -29,6 +30,7 @@
                             type="upvote"
                             @click="selectVote(1)"
                             :is-selected="selectedVote===1"
+                            :size="childrenSizes"
                         />
                         <ReactionButton
                             class="reactionButton"
@@ -36,11 +38,13 @@
                             type="downvote"
                             @click="selectVote(0)"
                             :is-selected="selectedVote===0"
+                            :size="childrenSizes"
                         />
                         <Button
                             class="voteButton"
                             :disabled="userHasVoted"
                             :click="submitVote"
+                            :size="childrenSizes"
                         >
                             Vote Now
                         </Button>
@@ -53,6 +57,7 @@
             :downvotes="1"
             :upvoteLabel="`${upvotes} of voters liked this celebrity`"
             :downvoteLabel="`${downvotes} of voters disliked this celebrity`"
+            :size="childrenSizes"
         />
     </article>
 </template>
@@ -103,6 +108,12 @@ export default {
             else{
                 return 0
             }
+        },
+        childrenSizes(){
+            if(this.layout==='grid'){
+                return 'small'
+            }
+            return 'medium'
         }
     },
     props: {
@@ -134,9 +145,9 @@ export default {
         },
         layout: {
             type: String,
-            default: 'vertical',
+            default: 'list',
             validator (value) {
-                return ['horizontal', 'vertical'].indexOf(value) !== -1
+                return ['grid', 'list'].indexOf(value) !== -1
             },
         }
     },
@@ -189,16 +200,19 @@ export default {
         align-items: center;
         justify-content: flex-end;
     }
-    .submitedDate,.form{
+    .submitedDate,
+    .form{
         text-align: right;
     }
     .submitedDate{
         margin-bottom: 1rem;
     }
-    .voteButton,.reactionButton{
+    .voteButton,
+    .reactionButton{
         margin-left: 1rem;
     }
-    .upvoteBadge,.downvoteBadge{
+    .upvoteBadge,
+    .downvoteBadge{
         width: 30px;
         height: 30px;
         position: absolute;
@@ -234,23 +248,31 @@ export default {
             margin: 0;
             font-size: var(--text-3);
         }
-        .upvoteBadge,.downvoteBadge{
+        .upvoteBadge,
+        .downvoteBadge{
             top: 0;
         }
         .image{
             width: 30%;
         }
-
-        .card--vertical .content{
+        .card.card--grid::before{
+            width: 100%;
+            background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.6) 100%);
+        }
+        .card--grid .image{
+            width: 100%;
+        }
+        .card--grid .content{
+            padding-left: 5rem;
             flex-direction: column;
             justify-content: flex-end;
         }
-        .card--vertical .description{
-            margin: 0;
+        .card--grid .description{
+            margin: 0 0 1.5rem 0;
             font-size: var(--text-2);
         }
-        .card--vertical .upvoteBadge,
-        .card--vertical.downvoteBadge{
+        .card--grid .upvoteBadge,
+        .card--grid.downvoteBadge{
             top: 2rem
         }
     }
@@ -266,10 +288,20 @@ export default {
         .submitedDate{
             font-size: var(--text-2);
         }
-        .upvoteBadge,.downvoteBadge{
+        .upvoteBadge,
+        .downvoteBadge{
             width: 45px;
             height: 45px;
             background-size: 24px auto;
+        }
+        .card--grid .upvoteBadge,
+        .card--grid .downvoteBadge{
+            width: 30px;
+            height: 30px;
+            background-size: 16px auto;
+        }
+        .card--grid .submitedDate{
+            font-size: var(--text-1);
         }
     }
 </style>
