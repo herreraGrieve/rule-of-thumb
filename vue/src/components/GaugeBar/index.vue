@@ -69,9 +69,9 @@ export default {
     .container{
         position: relative;
         display: grid;
+        height: 36px;
     }
     .upBar,.downBar{
-        height: 36px;
         color: white;
         font-size: var(--text-3);
     }
@@ -102,5 +102,13 @@ export default {
         width:1px;
         height:1px;
         overflow:hidden;
+    }
+    @media screen and (min-width:1010px) {
+        .container{
+            height: 54px;
+        }
+        .upBar,.downBar{
+            font-size: var(--text-5);
+        }
     }
 </style>
