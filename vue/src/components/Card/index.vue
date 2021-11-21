@@ -87,6 +87,7 @@ export default {
             this.selectedVote = vote
         },
         submitVote(){
+            this.$emit("onSubmitVote",this.selectedVote);
             this.voteIsSubmited = true
         },
         resetCard(){

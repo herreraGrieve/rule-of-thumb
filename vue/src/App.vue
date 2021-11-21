@@ -2,7 +2,7 @@
     <div id="app">
         <BaseTemplate>
             <ContentDisplayer title="Previous Rulings" @onLayoutChange="onLayoutChange">
-                <li v-for="ruling in rulings" v-bind:key="ruling.id">
+                <li v-for="ruling,index in rulings" v-bind:key="ruling.id">
                     <Card
                         :title="ruling.title"
                         :description="ruling.description"
@@ -10,6 +10,7 @@
                         :upvotes="ruling.upvotes"
                         :downvotes="ruling.downvotes"
                         :layout="layout"
+                        @onSubmitVote="(vote)=>{onSubmitVote(vote,index)}"
                     />
                 </li>
             </ContentDisplayer>
@@ -87,6 +88,9 @@ export default {
     methods:{
         onLayoutChange(layout){
             this.layout = layout
+        },
+        onSubmitVote(vote,index){
+            console.log(vote,index)
         }
     }
 };
