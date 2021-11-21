@@ -4,8 +4,8 @@
             <span
                 class="upBar__label"
                 aria-hidden="true"
-            > 
-                <img alt="" src="@/assets/img/thumbs-up.svg"/> 
+            >
+                <img alt="" src="@/assets/img/thumbs-up.svg"/>
                 {{ percent(upvotes) }}%
             </span>
             <p class="sr-only"> {{ upvoteLabel }} </p>
@@ -15,7 +15,7 @@
                 class="downBar__label" 
                 aria-hidden="true"
             >
-                {{ percent(downvotes) }}% 
+                {{ percent(downvotes) }}%
                 <img alt="" src="@/assets/img/thumbs-down.svg"/>
             </span>
             <p class="sr-only"> {{ downvoteLabel }} </p>
@@ -67,29 +67,32 @@ export default {
 
 <style scoped>
     .container{
+        position: relative;
         display: grid;
     }
     .upBar,.downBar{
         height: 36px;
         color: white;
         font-size: var(--text-3);
-        display: flex;
-        align-items: center;
     }
     .upBar{
-        padding-left: 0.9rem;
         background-color: var(--color-green-background);
     }
     .downBar{
-        padding-right: 0.9rem;
-        text-align: right;
         background-color: var(--color-yellow-background);
     }
+    .upBar__label{
+        left: 1rem;
+    }
     .downBar__label{
-        margin-left: auto;
+        right: 1rem;
     }
     .upBar__label,.downBar__label{
-        white-space: nowrap;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        position: absolute;
+        gap: 5px;
     }
     .sr-only {
         /* hides content for screens but not for screen-readers */
