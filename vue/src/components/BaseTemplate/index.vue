@@ -89,7 +89,7 @@
         </aside>
         <main role="main">
             <!-- Start: Implementation -->
-            👉 Your code goes here 👈
+            <slot></slot>
             <!-- End: Implementation -->
         </main>
         <aside class="banner banner-bottom" role="doc-tip" aria-label="Submit a name">
