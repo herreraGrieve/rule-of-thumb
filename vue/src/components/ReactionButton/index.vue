@@ -1,7 +1,7 @@
 <template>
     <button type="button" @click="onClick" :class="`reactionButton ${type} ${selected}`">
-        <img v-if="type==='upvote'" src="@/assets/img/thumbs-up.svg"/>
-        <img v-if="type==='downvote'" src="@/assets/img/thumbs-down.svg"/>
+        <img class="icon" v-if="type==='upvote'" src="@/assets/img/thumbs-up.svg"/>
+        <img class="icon" v-if="type==='downvote'" src="@/assets/img/thumbs-down.svg"/>
     </button>
 </template>
 
@@ -58,5 +58,14 @@ export default {
     }
     .downvote{
         background-color: var(--color-yellow);
+    }
+    @media screen and (min-width:1010px) {
+        .upvote,.downvote{
+            width: 45px;
+            height: 45px;
+        }
+        .icon{
+            width: 24px;
+        }
     }
 </style>
