@@ -7,6 +7,7 @@
             <div>
                 <Heading class="title" :level="headingLevel"> {{ title }} </Heading>
                 <p class="description">{{ trimmedDescription }}</p>
+                <p class="description--smaller" aria-hidden="true">{{ evenSmallerTrimmedDescription }}</p>
             </div>
             <div>
                 <div class="submitedDate">
@@ -102,6 +103,12 @@ export default {
             }
             return this.description
         },
+        evenSmallerTrimmedDescription(){
+            if(this.description.length > 53){
+                return this.description.substring(0, 50) + '...'
+            }
+            return this.description
+        },
         userHasVoted(){
             if (this.selectedVote === 0 || this.selectedVote === 1){
                 return false
@@ -175,6 +182,7 @@ export default {
 
 <style scoped>
     .card{
+        height: 100%;
         position: relative;
         display: flex;
         flex-direction: column;
@@ -203,16 +211,19 @@ export default {
         object-position: center center;
     }
     .content{
-        padding: 2rem 3rem 1rem 3rem;
+        padding: 2rem 1rem 1rem 3rem;
     }
     .title{
         margin-bottom: 0.5rem;
         font-weight: 400;
         font-size: var(--text-5);
     }
-    .description{
+    .description,.description--smaller{
         margin-bottom: 1rem;
         font-size: var(--text-2);
+    }
+    .description{
+        display: none;
     }
     .voteButons{
         display: flex;
@@ -264,7 +275,8 @@ export default {
             margin-bottom: 1.2rem;
             font-size: var(--text-5);
         }
-        .description{
+        .description--smaller{
+            display: block;
             margin: 0;
             font-size: var(--text-3);
         }
@@ -287,7 +299,7 @@ export default {
             flex-direction: column;
             justify-content: flex-end;
         }
-        .card--grid .description{
+        .card--grid .description--smaller{
             margin: 0 0 1.5rem 0;
             font-size: var(--text-2);
         }
@@ -301,9 +313,27 @@ export default {
             margin-bottom: 1.5rem;
             font-size: var(--text-6);
         }
+        .card--grid .title{
+            margin-bottom: 1.5rem;
+            font-size: var(--text-5);
+        }
         .description{
+            display: block;
             margin: 0;
             font-size: var(--text-4);
+        }
+        .description--smaller{
+            display: none;
+        }
+        .card--grid .content{
+            padding-left: 3.5rem;
+            padding-right: 2rem;
+        }
+        .card--grid .description{
+            display: none;
+        }
+        .card--grid .description--smaller{
+            display: block;
         }
         .submitedDate{
             font-size: var(--text-2);
