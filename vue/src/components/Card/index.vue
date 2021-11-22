@@ -12,9 +12,12 @@
             <div>
                 <div class="submitedDate">
                     <p v-if="voteIsSubmited">Thank you for you vote!</p>
-                    <time v-else itemprop="datePublished" :datetime="datePublished">
-                        {{ datePublished }}
-                    </time>
+                    <p v-else class="dateCategory">
+                        <time  itemprop="datePublished" :datetime="datePublished">
+                            {{ datePublished }}
+                        </time>
+                        in {{ category }}
+                    </p>
                 </div>
                 <form class="form">
                     <Button
@@ -169,6 +172,10 @@ export default {
             type: String,
             default: '',
         },
+        category: {
+            type: String,
+            default: '',
+        },
         layout: {
             type: String,
             default: 'list',
@@ -233,6 +240,9 @@ export default {
     .submitedDate,
     .form{
         text-align: right;
+        white-space: nowrap;
+    }
+    .dateCategory{
         white-space: nowrap;
     }
     .submitedDate{

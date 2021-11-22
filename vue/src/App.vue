@@ -10,6 +10,7 @@
                         :upvotes="parseInt(ruling.positiveVotes)"
                         :downvotes="parseInt(ruling.negativeVotes)"
                         :picture="`${baseApi}${ruling.picture.url}`"
+                        :category="ruling.category.name"
                         :layout="layout"
                         @onSubmitVote="(vote)=>{onSubmitVote(vote,index)}"
                     />
