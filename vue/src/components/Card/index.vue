@@ -14,7 +14,7 @@
                     <p v-if="voteIsSubmited">Thank you for you vote!</p>
                     <p v-else class="dateCategory">
                         <time  itemprop="datePublished" :datetime="datePublished">
-                            {{ datePublished }}
+                            {{ elapsedTime }}
                         </time>
                         in {{ category }}
                     </p>
@@ -71,6 +71,7 @@ import Heading from '@/components/Heading';
 import GaugeBar from '@/components/GaugeBar';
 import Button from '@/components/Button';
 import ReactionButton from '@/components/ReactionButton';
+import moment from 'moment';
 
 export default {
     name: 'Card',
@@ -131,6 +132,28 @@ export default {
                 return 'small'
             }
             return 'medium'
+        },
+        elapsedTime(){
+            const now = moment();
+            const datePublished = moment(this.datePublished);
+            const elapsedDays = parseInt(now.diff(datePublished,'days'));
+            if(elapsedDays <= 1){
+                return `today`
+            }
+            else if(elapsedDays < 32) {
+                if(elapsedDays === 0) return `${elapsedDays} day ago`
+                return `${elapsedDays} days ago`
+            }
+            else if(elapsedDays < 365) {
+                const elapsedMonths = now.diff(datePublished,'months');
+                if(elapsedMonths === 1) return `${elapsedMonths} month ago`
+                return `${elapsedMonths} months ago`
+            }
+            else{
+                const elapsedYears = now.diff(datePublished,'years');
+                if(elapsedYears === 1) return `${elapsedYears} year ago`
+                return `${elapsedYears} years ago`
+            }
         },
         hasVotes(){
             if(this.upvotes > 0 || this.downvotes > 0){
